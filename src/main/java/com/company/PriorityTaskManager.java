@@ -1,9 +1,7 @@
 package com.company;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PriorityTaskManager implements TaskManager {
     public PriorityQueue<ProcessContainer> priorityQueue;
@@ -12,9 +10,16 @@ public class PriorityTaskManager implements TaskManager {
     public int maxSize;
 
     public PriorityTaskManager(int max) {
-        this.priorityQueue = new PriorityQueue<>(0, new Comparator<ProcessContainer>() {
+        this.priorityQueue = new PriorityQueue<>(1, new Comparator<ProcessContainer>() {
             @Override
             public int compare(ProcessContainer o1, ProcessContainer o2) {
+                if (o1.getPriority() == o2.getPriority()) {
+                    if ((o1.getCreationTime() == o2.getCreationTime())) {
+                        return o1.getId() - o2.getId();
+
+                    }
+                    return (int) (o1.getCreationTime() - o2.getCreationTime());
+                }
                 return o1.getPriority() - o2.getPriority();
             }
         });
@@ -71,6 +76,26 @@ public class PriorityTaskManager implements TaskManager {
         if (!residue.isEmpty()) {
             priorityMap.put(priority, residue);
             throw new TerminationError("Not all processes could be killed");
+        }
+    }
+
+    @Override
+    public List<Process> list(SortType st) {
+
+        if (st == SortType.ID) { // Id based
+            return priorityQueue.stream().sorted(new Comparator<ProcessContainer>() {
+                @Override
+                public int compare(ProcessContainer o1, ProcessContainer o2) {
+                    return o1.getId() - o1.getId();
+                }
+            }).map(processContainer -> processContainer.getProcess()).collect(Collectors.toList());
+        } else {
+            return priorityQueue.stream().sorted(new Comparator<ProcessContainer>() {
+                @Override
+                public int compare(ProcessContainer o1, ProcessContainer o2) {
+                    return o1.getPriority() - o1.getPriority();
+                }
+            }).map(processContainer -> processContainer.getProcess()).collect(Collectors.toList());
         }
     }
 }
