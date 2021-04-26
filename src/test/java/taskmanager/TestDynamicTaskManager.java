@@ -48,6 +48,7 @@ public class TestDynamicTaskManager {
     @Test
     @DisplayName("Test get list sorting")
     public void testList() {
+        tm = new DynamicTaskManager(5);
         tm.addProcess(new DummyProcess(1, 1));
         tm.addProcess(new DummyProcess(2, 1));
         tm.addProcess(new DummyProcess(3, 2));
