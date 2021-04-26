@@ -1,6 +1,7 @@
-package com.company.taskmanager;
+package com.company.taskmanager.impl;
 
 import com.company.Process;
+import com.company.taskmanager.TaskManager;
 import com.company.taskmanager.objects.ProcessContainer;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class StubbornTaskManager extends TaskManager {
 
     public StubbornTaskManager(int max){
-        this.queue = new ArrayBlockingQueue<ProcessContainer>(1);
+        this.queue = new ArrayBlockingQueue<ProcessContainer>(max);
         this.idMap = new HashMap<>();
         this.priorityMap = new HashMap<>();
         this.maxSize = max;

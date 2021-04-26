@@ -1,8 +1,8 @@
 package com.company.taskmanager;
 
 import com.company.Process;
+import com.company.taskmanager.constants.SortType;
 import com.company.taskmanager.objects.ProcessContainer;
-import com.company.SortType;
 import com.company.TerminationError;
 
 import java.util.*;

@@ -1,15 +1,16 @@
-package com.company.taskmanager;
+package com.company.taskmanager.impl;
 
 import com.company.Process;
+import com.company.taskmanager.TaskManager;
 import com.company.taskmanager.objects.ProcessContainer;
 
 import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class DynamicQueue extends TaskManager {
+public class DynamicTaskManager extends TaskManager {
 
-    public DynamicQueue(int max){
-        this.queue = new ArrayBlockingQueue<ProcessContainer>(1);
+    public DynamicTaskManager(int max){
+        this.queue = new ArrayBlockingQueue<ProcessContainer>(max);
         this.idMap = new HashMap<>();
         this.priorityMap = new HashMap<>();
         this.maxSize = max;

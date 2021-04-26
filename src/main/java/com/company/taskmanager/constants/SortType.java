@@ -1,4 +1,4 @@
-package com.company;
+package com.company.taskmanager.constants;
 
 public enum SortType {
     ID,

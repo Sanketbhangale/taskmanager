@@ -1,6 +1,7 @@
-package com.company.taskmanager;
+package com.company.taskmanager.impl;
 
 import com.company.Process;
+import com.company.taskmanager.TaskManager;
 import com.company.taskmanager.objects.ProcessContainer;
 
 import java.util.*;

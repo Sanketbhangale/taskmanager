@@ -1,15 +1,19 @@
 package com.company.taskmanager.objects;
+
 import com.company.Process;
 
 import java.util.Date;
+
 public class ProcessContainer {
     private int id;
     private int priority;
     private Process process;
 
     private long creationTime;
+
     //Block access to default constructor
-    private ProcessContainer(){}
+    private ProcessContainer() {
+    }
 
     public Process getProcess() {
         return process;
@@ -19,7 +23,7 @@ public class ProcessContainer {
         return creationTime;
     }
 
-    public ProcessContainer(Process process){
+    public ProcessContainer(Process process) {
         this.process = process;
         this.id = process.getId();
         this.priority = process.getPriority();
@@ -30,20 +34,12 @@ public class ProcessContainer {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-
-    public void kill() throws Exception{
+    public void kill() throws Exception {
         this.process.freeResources();
     }
 }
