@@ -1,10 +1,12 @@
-package com.company;
+package com.company.taskmanager;
+
+import com.company.Process;
+import com.company.taskmanager.objects.ProcessContainer;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class DynamicQueue extends TaskManager{
+public class DynamicQueue extends TaskManager {
 
     public DynamicQueue(int max){
         this.queue = new ArrayBlockingQueue<ProcessContainer>(1);

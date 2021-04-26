@@ -1,4 +1,9 @@
-package com.company;
+package com.company.taskmanager;
+
+import com.company.Process;
+import com.company.taskmanager.objects.ProcessContainer;
+import com.company.SortType;
+import com.company.TerminationError;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,6 +31,7 @@ public abstract class TaskManager {
         LinkedList<ProcessContainer> residue = new LinkedList<>();
         list.forEach(container -> {
             try {
+                queue.remove(container);
                 idMap.remove(container.getId());
                 container.kill();
             } catch (Exception e) {
@@ -41,7 +47,7 @@ public abstract class TaskManager {
 
     protected abstract ProcessContainer addProcessToQueue(Process process);
 
-    public void addProcess(Process process) {
+    public synchronized void addProcess(Process process) {
         ProcessContainer container = addProcessToQueue(process);
         if (container != null) {
             idMap.put(container.getId(), container);

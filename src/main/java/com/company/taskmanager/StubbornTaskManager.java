@@ -1,12 +1,12 @@
-package com.company;
+package com.company.taskmanager;
 
-import java.util.Comparator;
+import com.company.Process;
+import com.company.taskmanager.objects.ProcessContainer;
+
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class StubbornTaskManager extends TaskManager{
+public class StubbornTaskManager extends TaskManager {
 
     public StubbornTaskManager(int max){
         this.queue = new ArrayBlockingQueue<ProcessContainer>(1);

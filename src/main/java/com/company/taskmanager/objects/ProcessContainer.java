@@ -1,4 +1,6 @@
-package com.company;
+package com.company.taskmanager.objects;
+import com.company.Process;
+
 import java.util.Date;
 public class ProcessContainer {
     private int id;

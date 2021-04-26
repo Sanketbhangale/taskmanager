@@ -1,7 +1,9 @@
-package com.company;
+package com.company.taskmanager;
+
+import com.company.Process;
+import com.company.taskmanager.objects.ProcessContainer;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PriorityTaskManager extends TaskManager {
 

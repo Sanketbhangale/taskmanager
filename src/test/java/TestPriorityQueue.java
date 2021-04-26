@@ -1,7 +1,8 @@
-import com.company.PriorityTaskManager;
+import com.company.TerminationError;
+import com.company.taskmanager.PriorityTaskManager;
 import com.company.Process;
 import com.company.SortType;
-import com.company.TaskManager;
+import com.company.taskmanager.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,8 +56,8 @@ public class TestPriorityQueue {
     }
 
     @Test
-    @DisplayName("Add and kill")
-    public void testAddKill() {
+    @DisplayName("Adding to queue")
+    public void testAdd() {
         tm.addProcess(new DummyProcess(1,1));
         tm.addProcess(new DummyProcess(2,1));
 
@@ -75,6 +76,31 @@ public class TestPriorityQueue {
         // When sorted by id the first element should be with id 2.
         // Since the recent addition removed (id:1, priority: 1)
         assertEquals(2, tm.list(SortType.ID).stream().findFirst().get().getId());
+
+    }
+
+    @Test
+    @DisplayName("Killing")
+    public void testKill() throws TerminationError {
+        tm.addProcess(new DummyProcess(1,1));
+        tm.addProcess(new DummyProcess(2,1));
+
+        tm.addProcess(new DummyProcess(3,2));
+        tm.addProcess(new DummyProcess(4,2));
+        tm.addProcess(new DummyProcess(5,3));
+
+        assertEquals(5, tm.list(SortType.PRIORITY).size());
+        tm.kill(5);
+        assertEquals(4, tm.list(SortType.ID).size());
+        assertEquals(2, tm.list(SortType.PRIORITY).get(3).getPriority());
+        assertEquals(4, tm.list(SortType.PRIORITY).get(3).getId());
+        assertEquals(1, tm.list(SortType.ID).stream().findFirst().get().getId());
+
+        tm.killPriority(2);
+        assertEquals(2, tm.list(SortType.PRIORITY).size());
+        // When sorted by id the first element should be with id 2.
+        // Since the recent addition removed (id:1, priority: 1)
+
 
     }
 }
