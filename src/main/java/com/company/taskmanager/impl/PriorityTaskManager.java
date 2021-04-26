@@ -4,7 +4,9 @@ import com.company.Process;
 import com.company.taskmanager.TaskManager;
 import com.company.taskmanager.objects.ProcessContainer;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 
 public class PriorityTaskManager extends TaskManager {
 

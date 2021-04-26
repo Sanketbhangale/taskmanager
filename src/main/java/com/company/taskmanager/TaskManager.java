@@ -1,9 +1,9 @@
 package com.company.taskmanager;
 
 import com.company.Process;
+import com.company.TerminationError;
 import com.company.taskmanager.constants.SortType;
 import com.company.taskmanager.objects.ProcessContainer;
-import com.company.TerminationError;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 public abstract class TaskManager {
     public Queue<ProcessContainer> queue;
     public int maxSize;
-    public HashMap<Integer, ProcessContainer> idMap;
-    public HashMap<Integer, LinkedList<ProcessContainer>> priorityMap;
+    public Map<Integer, ProcessContainer> idMap;
+    public Map<Integer, LinkedList<ProcessContainer>> priorityMap;
 
     public void kill(int id) throws TerminationError {
         ProcessContainer container = idMap.get(id);
