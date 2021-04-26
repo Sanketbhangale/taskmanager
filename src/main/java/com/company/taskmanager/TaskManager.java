@@ -14,7 +14,7 @@ public abstract class TaskManager {
     public Map<Integer, ProcessContainer> idMap;
     public Map<Integer, LinkedList<ProcessContainer>> priorityMap;
 
-    public void kill(int id) throws TerminationError {
+    public synchronized void kill(int id) throws TerminationError {
         ProcessContainer container = idMap.get(id);
         try {
             container.kill();
@@ -26,7 +26,7 @@ public abstract class TaskManager {
         }
     }
 
-    public void killPriority(int priority) throws TerminationError {
+    public synchronized void killPriority(int priority) throws TerminationError {
         LinkedList<ProcessContainer> list = priorityMap.get(priority);
         LinkedList<ProcessContainer> residue = new LinkedList<>();
         list.forEach(container -> {
