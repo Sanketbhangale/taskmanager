@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
 public class PriorityTaskManager extends TaskManager {
 
 
-    public PriorityTaskManager(int max) {
+    public PriorityTaskManager(int maxSize) {
         this.queue = new PriorityQueue<>(1, new Comparator<ProcessContainer>() {
             @Override
             public int compare(ProcessContainer o1, ProcessContainer o2) {
@@ -27,7 +27,7 @@ public class PriorityTaskManager extends TaskManager {
         });
         this.idMap = new HashMap<>();
         this.priorityMap = new HashMap<>();
-        this.maxSize = max;
+        this.maxSize = maxSize;
     }
 
     @Override

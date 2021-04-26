@@ -9,11 +9,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class StubbornTaskManager extends TaskManager {
 
-    public StubbornTaskManager(int max){
-        this.queue = new ArrayBlockingQueue<ProcessContainer>(max);
+    public StubbornTaskManager(int maxSize){
+        this.queue = new ArrayBlockingQueue<ProcessContainer>(maxSize);
         this.idMap = new HashMap<>();
         this.priorityMap = new HashMap<>();
-        this.maxSize = max;
+        this.maxSize = maxSize;
     }
 
 
