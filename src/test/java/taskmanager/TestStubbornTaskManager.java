@@ -99,4 +99,23 @@ public class TestStubbornTaskManager {
         tm.killPriority(2);
         assertEquals(2, tm.list(SortType.PRIORITY).size());
     }
+
+
+    @Test
+    @DisplayName("Killing")
+    public void testKillAndAdd() throws TerminationError {
+        tm.addProcess(new DummyProcess(1, 1));
+        tm.addProcess(new DummyProcess(2, 1));
+
+        tm.addProcess(new DummyProcess(3, 2));
+        tm.addProcess(new DummyProcess(4, 2));
+        tm.addProcess(new DummyProcess(5, 3));
+
+        assertEquals(5, tm.list(SortType.PRIORITY).size());
+        tm.kill(5);
+        assertEquals(4, tm.list(SortType.ID).size());
+        tm.addProcess(new DummyProcess(6, 3));
+        assertEquals(5, tm.list(SortType.ID).size());
+
+    }
 }
