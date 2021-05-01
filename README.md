@@ -3,7 +3,7 @@
 # Usage of the component
 
 To use the task manager accepts a process object that implements the process interface.
-``
+
         class MySystemProcess implements Process {
         private int id;
         private int priority;
@@ -30,7 +30,7 @@ To use the task manager accepts a process object that implements the process int
                     return 0;
                 }
     }
-``
+
 
 You can instantiate a TaskManager interface using below three subclasses
 
