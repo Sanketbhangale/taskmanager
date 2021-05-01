@@ -1,6 +1,7 @@
 package com.company.taskmanager.impl;
 
 import com.company.Process;
+import com.company.TerminationException;
 import com.company.taskmanager.AbstractTaskManagerImpl;
 import com.company.taskmanager.containers.ProcessContainer;
 
@@ -17,7 +18,13 @@ public class StubbornTaskManager extends AbstractTaskManagerImpl {
 
     }
 
-
+    /**
+     * Note that this protected and cannot be accessed outside.
+     * This is always called in the thread safe block in the addProcess method in super class
+     * @param process
+     * @return
+     * @throws TerminationException
+     */
     @Override
     protected ProcessContainer addProcessToQueue(Process process) {
         ProcessContainer container = new ProcessContainer(process);

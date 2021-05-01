@@ -34,8 +34,14 @@ public abstract class AbstractTaskManagerImpl implements TaskManager {
         this.maxSize = maxSize;
     }
 
+    /**
+     * Kills the process with an id.
+     * The locks are used to make it thread safe so that other writes are blocked
+     * @param id
+     * @throws TerminationException
+     */
     @Override
-    public synchronized void kill(int id) throws TerminationException {
+    public void kill(int id) throws TerminationException {
         ProcessContainer container = idToProcessMap.get(id);
         writeLock.writeLock().lock();
         try {
@@ -49,9 +55,15 @@ public abstract class AbstractTaskManagerImpl implements TaskManager {
         }
         writeLock.writeLock().unlock();
     }
+    /**
+     * Kills the processes with priority.
+     * The locks are used to make it thread safe so that other writes are blocked
+     * @param priority
+     * @throws TerminationException
+     */
 
     @Override
-    public synchronized void killPriority(int priority) throws TerminationException {
+    public void killPriority(int priority) throws TerminationException {
         LinkedList<ProcessContainer> list = priorityToProcessMap.get(priority);
         LinkedList<ProcessContainer> residue = new LinkedList<>();
         writeLock.writeLock().lock();
@@ -79,8 +91,15 @@ public abstract class AbstractTaskManagerImpl implements TaskManager {
 
     protected abstract ProcessContainer addProcessToQueue(Process process) throws TerminationException;
 
+    /**
+     * These are common procedures to do while adding a process.
+     * The behavior specific code is delegated to #addProcessToQueue for the
+     * implementor classes.
+     * @param process
+     * @throws TerminationException
+     */
     @Override
-    public synchronized void addProcess(Process process) throws TerminationException {
+    public void addProcess(Process process) throws TerminationException {
         writeLock.writeLock().lock();
         try {
             ProcessContainer container = addProcessToQueue(process);

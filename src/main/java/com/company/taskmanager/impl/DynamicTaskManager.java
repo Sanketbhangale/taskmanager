@@ -28,6 +28,13 @@ public class DynamicTaskManager extends AbstractTaskManagerImpl {
     }
 
 
+    /**
+     * Note that this protected and cannot be accessed outside.
+     * This is always called in the thread safe block in the addProcess method in super class
+     * @param process
+     * @return
+     * @throws TerminationException
+     */
     @Override
     protected ProcessContainer addProcessToQueue(Process process) throws TerminationException {
         ProcessContainer container = new ProcessContainer(process);
