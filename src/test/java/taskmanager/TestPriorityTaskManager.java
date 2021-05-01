@@ -102,9 +102,8 @@ public class TestPriorityTaskManager {
 
         tm.killPriority(2);
         assertEquals(2, tm.list(SortType.PRIORITY).size());
-        // When sorted by id the first element should be with id 2.
-        // Since the recent addition removed (id:1, priority: 1)
-
+        // When sorted by id the first element has to be still id:1
+        assertEquals(1, tm.list(SortType.ID).stream().findFirst().get().getId());
 
     }
 

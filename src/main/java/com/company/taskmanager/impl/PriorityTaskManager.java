@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
 
 /**
- *
+ * Prioirity Task manager let's you add a proccess if the new process has a higher priority
+ * than the lowest priority element. If there are more than one element with same priority the
+ * oldest one is removed
  */
 public class PriorityTaskManager extends TaskManager {
 

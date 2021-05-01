@@ -7,6 +7,9 @@ import com.company.taskmanager.objects.ProcessContainer;
 import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 
+/**
+ * Stubborn task manager doesn't allow you to add more process if it is full
+ */
 public class StubbornTaskManager extends TaskManager {
 
     public StubbornTaskManager(int maxSize){
