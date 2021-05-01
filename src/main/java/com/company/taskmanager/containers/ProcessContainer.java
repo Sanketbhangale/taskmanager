@@ -1,14 +1,14 @@
-package com.company.taskmanager.objects;
+package com.company.taskmanager.containers;
 
-import com.company.Processable;
-import com.company.TerminationError;
+import com.company.Process;
+import com.company.TerminationException;
 
 import java.util.Date;
 
 public class ProcessContainer {
     private int id;
     private int priority;
-    private Processable process;
+    private Process process;
 
     private long creationTime;
 
@@ -16,7 +16,7 @@ public class ProcessContainer {
     private ProcessContainer() {
     }
 
-    public Processable getProcess() {
+    public Process getProcess() {
         return process;
     }
 
@@ -24,7 +24,7 @@ public class ProcessContainer {
         return creationTime;
     }
 
-    public ProcessContainer(Processable process) {
+    public ProcessContainer(Process process) {
         this.process = process;
         this.id = process.getId();
         this.priority = process.getPriority();
@@ -40,7 +40,7 @@ public class ProcessContainer {
         return priority;
     }
 
-    public void kill() throws TerminationError {
+    public void kill() throws TerminationException {
         this.process.freeResources();
     }
 }

@@ -1,10 +1,10 @@
 package taskmanager;
 
-import com.company.Processable;
+import com.company.Process;
 import com.company.taskmanager.constants.SortType;
-import com.company.TerminationError;
+import com.company.TerminationException;
 import com.company.taskmanager.impl.DynamicTaskManager;
-import com.company.taskmanager.TaskManager;
+import com.company.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestDynamicTaskManager {
     private TaskManager tm;
 
-    class DummyProcess implements Processable {
+    class DummyProcess implements Process {
         private int id;
         private int priority;
 
@@ -34,7 +34,7 @@ public class TestDynamicTaskManager {
         }
 
         @Override
-        public int freeResources() throws TerminationError {
+        public int freeResources() throws TerminationException {
             System.out.println("Did some magic and free resources");
             return 0;
         }
@@ -47,7 +47,7 @@ public class TestDynamicTaskManager {
 
     @Test
     @DisplayName("Test get list sorting")
-    public void testList() throws TerminationError{
+    public void testList() throws TerminationException {
         tm = new DynamicTaskManager(5);
         tm.addProcess(new DummyProcess(1, 1));
         tm.addProcess(new DummyProcess(2, 1));
@@ -65,7 +65,7 @@ public class TestDynamicTaskManager {
 
     @Test
     @DisplayName("Adding to queue")
-    public void testAdd() throws TerminationError{
+    public void testAdd() throws TerminationException {
         tm.addProcess(new DummyProcess(1, 1));
         tm.addProcess(new DummyProcess(2, 1));
         assertEquals(2, tm.list(SortType.ID).size());
@@ -90,7 +90,7 @@ public class TestDynamicTaskManager {
 
     @Test
     @DisplayName("Killing")
-    public void testKill() throws TerminationError {
+    public void testKill() throws TerminationException {
         tm.addProcess(new DummyProcess(1, 1));
         tm.addProcess(new DummyProcess(2, 1));
 

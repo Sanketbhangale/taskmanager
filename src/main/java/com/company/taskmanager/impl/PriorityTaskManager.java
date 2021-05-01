@@ -1,12 +1,11 @@
 package com.company.taskmanager.impl;
 
-import com.company.Processable;
-import com.company.TerminationError;
-import com.company.taskmanager.TaskManager;
-import com.company.taskmanager.objects.ProcessContainer;
+import com.company.Process;
+import com.company.TerminationException;
+import com.company.taskmanager.AbstractTaskManagerImpl;
+import com.company.taskmanager.containers.ProcessContainer;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
 
 /**
@@ -14,13 +13,14 @@ import java.util.concurrent.PriorityBlockingQueue;
  * than the lowest priority element. If there are more than one element with same priority the
  * oldest one is removed
  */
-public class PriorityTaskManager extends TaskManager {
+public class PriorityTaskManager extends AbstractTaskManagerImpl {
 
     //The Priority queue uses Priority, Creation time, id in descending order of
     // importance to sort the queue.
     // Insertion operation on the queue is O(logN)
     // idToProcessMap works with worst case of O(N) on all it's operations
     public PriorityTaskManager(int maxSize) {
+        super(maxSize);
         this.queue = new PriorityBlockingQueue<>(1, new Comparator<ProcessContainer>() {
             @Override
             public int compare(ProcessContainer o1, ProcessContainer o2) {
@@ -34,13 +34,10 @@ public class PriorityTaskManager extends TaskManager {
                 return o1.getPriority() - o2.getPriority();
             }
         });
-        this.idToProcessMap = new HashMap<>();
-        this.priorityToProcessMap = new HashMap<>();
-        this.maxSize = maxSize;
     }
 
     @Override
-    protected ProcessContainer addProcessToQueue(Processable process) throws TerminationError {
+    protected ProcessContainer addProcessToQueue(Process process) throws TerminationException {
         ProcessContainer container = new ProcessContainer(process);
         if (!queue.isEmpty() && queue.size() >= this.maxSize && container.getPriority() > queue.peek().getPriority()) {
             queue.peek().kill();

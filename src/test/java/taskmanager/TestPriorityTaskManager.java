@@ -1,10 +1,10 @@
 package taskmanager;
 
-import com.company.TerminationError;
+import com.company.TerminationException;
 import com.company.taskmanager.impl.PriorityTaskManager;
-import com.company.Processable;
+import com.company.Process;
 import com.company.taskmanager.constants.SortType;
-import com.company.taskmanager.TaskManager;
+import com.company.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPriorityTaskManager {
     private TaskManager tm;
-    class DummyProcess implements Processable {
+    class DummyProcess implements Process {
         private int id;
         private int priority;
         public DummyProcess(int id, int priority) {
@@ -31,7 +31,7 @@ public class TestPriorityTaskManager {
         }
 
         @Override
-        public int freeResources() throws TerminationError {
+        public int freeResources() throws TerminationException {
             System.out.println("Did some magic and free resources");
             return 0;
         }
@@ -43,7 +43,7 @@ public class TestPriorityTaskManager {
 
     @Test
     @DisplayName("Test get list sorting")
-    public void testList() throws TerminationError{
+    public void testList() throws TerminationException {
         tm.addProcess(new DummyProcess(1,1));
         tm.addProcess(new DummyProcess(2,1));
         tm.addProcess(new DummyProcess(3,2));
@@ -59,7 +59,7 @@ public class TestPriorityTaskManager {
 
     @Test
     @DisplayName("Adding to queue")
-    public void testAdd() throws TerminationError{
+    public void testAdd() throws TerminationException {
         tm.addProcess(new DummyProcess(1,1));
         tm.addProcess(new DummyProcess(2,1));
 
@@ -85,7 +85,7 @@ public class TestPriorityTaskManager {
 
     @Test
     @DisplayName("Killing")
-    public void testKill() throws TerminationError {
+    public void testKill() throws TerminationException {
         tm.addProcess(new DummyProcess(1,1));
         tm.addProcess(new DummyProcess(2,1));
 
@@ -109,7 +109,7 @@ public class TestPriorityTaskManager {
 
     @Test
     @DisplayName("Killing")
-    public void testKillAndAdd() throws TerminationError {
+    public void testKillAndAdd() throws TerminationException {
         tm.addProcess(new DummyProcess(1, 1));
         tm.addProcess(new DummyProcess(2, 1));
 

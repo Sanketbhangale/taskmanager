@@ -2,9 +2,9 @@
 
 # Usage of the component
 
-To use the task manager accepts a process object that implements the processable interface.
+To use the task manager accepts a process object that implements the process interface.
 ``
-class MySystemProcess implements Processable {
+class MySystemProcess implements Process {
 private int id;
 private int priority;
 
