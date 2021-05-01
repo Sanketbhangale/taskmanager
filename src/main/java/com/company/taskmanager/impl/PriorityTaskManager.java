@@ -9,6 +9,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
 
+/**
+ *
+ */
 public class PriorityTaskManager extends TaskManager {
 
 
@@ -35,7 +38,8 @@ public class PriorityTaskManager extends TaskManager {
     protected ProcessContainer addProcessToQueue(Processable process) throws TerminationError {
         ProcessContainer container = new ProcessContainer(process);
         if (!queue.isEmpty() && queue.size() >= this.maxSize && container.getPriority() > queue.peek().getPriority()) {
-            queue.remove().kill();
+            queue.peek().kill();
+            queue.remove();
         }
         queue.add(container);
         idToProcessMap.put(container.getId(), container);
