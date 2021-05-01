@@ -1,6 +1,6 @@
 package taskmanager;
 
-import com.company.Process;
+import com.company.Processable;
 import com.company.taskmanager.constants.SortType;
 import com.company.TerminationError;
 import com.company.taskmanager.impl.StubbornTaskManager;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestStubbornTaskManager {
     private TaskManager tm;
 
-    class DummyProcess implements Process {
+    class DummyProcess implements Processable {
         private int id;
         private int priority;
 
@@ -34,7 +34,7 @@ public class TestStubbornTaskManager {
         }
 
         @Override
-        public int freeResources() throws Exception {
+        public int freeResources() throws TerminationError {
             System.out.println("Did some magic and free resources");
             return 0;
         }
@@ -47,7 +47,7 @@ public class TestStubbornTaskManager {
 
     @Test
     @DisplayName("Test get list sorting")
-    public void testList() {
+    public void testList() throws TerminationError{
         tm.addProcess(new DummyProcess(1, 1));
         tm.addProcess(new DummyProcess(2, 1));
         tm.addProcess(new DummyProcess(3, 2));
@@ -64,7 +64,7 @@ public class TestStubbornTaskManager {
 
     @Test
     @DisplayName("Adding to queue")
-    public void testAdd() {
+    public void testAdd() throws TerminationError{
         tm.addProcess(new DummyProcess(1, 1));
         tm.addProcess(new DummyProcess(2, 1));
         assertEquals(2, tm.list(SortType.ID).size());

@@ -1,27 +1,32 @@
 package com.company.taskmanager.impl;
 
-import com.company.Process;
+import com.company.Processable;
+import com.company.TerminationError;
 import com.company.taskmanager.TaskManager;
 import com.company.taskmanager.objects.ProcessContainer;
 
 import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 
+/**
+ * A Dynamic task manager allows you to add a process by removing the oldest element
+ * in the queue and killing it.
+ */
 public class DynamicTaskManager extends TaskManager {
 
     public DynamicTaskManager(int maxSize){
         this.queue = new ArrayBlockingQueue<ProcessContainer>(maxSize);
-        this.idMap = new HashMap<>();
-        this.priorityMap = new HashMap<>();
+        this.idToProcessMap = new HashMap<>();
+        this.priorityToProcessMap = new HashMap<>();
         this.maxSize = maxSize;
     }
 
 
     @Override
-    protected ProcessContainer addProcessToQueue(Process process) {
+    protected ProcessContainer addProcessToQueue(Processable process) throws TerminationError {
         ProcessContainer container = new ProcessContainer(process);
         if (!queue.isEmpty() && queue.size() >= this.maxSize && container.getPriority() > queue.peek().getPriority()) {
-                queue.remove();
+                queue.remove().kill();
         }
         queue.add(container);
         return container;

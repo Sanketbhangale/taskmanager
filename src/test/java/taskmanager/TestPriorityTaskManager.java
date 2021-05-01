@@ -2,7 +2,7 @@ package taskmanager;
 
 import com.company.TerminationError;
 import com.company.taskmanager.impl.PriorityTaskManager;
-import com.company.Process;
+import com.company.Processable;
 import com.company.taskmanager.constants.SortType;
 import com.company.taskmanager.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPriorityTaskManager {
     private TaskManager tm;
-    class DummyProcess implements Process{
+    class DummyProcess implements Processable {
         private int id;
         private int priority;
         public DummyProcess(int id, int priority) {
@@ -31,7 +31,7 @@ public class TestPriorityTaskManager {
         }
 
         @Override
-        public int freeResources() throws Exception {
+        public int freeResources() throws TerminationError {
             System.out.println("Did some magic and free resources");
             return 0;
         }
@@ -43,7 +43,7 @@ public class TestPriorityTaskManager {
 
     @Test
     @DisplayName("Test get list sorting")
-    public void testList() {
+    public void testList() throws TerminationError{
         tm.addProcess(new DummyProcess(1,1));
         tm.addProcess(new DummyProcess(2,1));
         tm.addProcess(new DummyProcess(3,2));
@@ -59,7 +59,7 @@ public class TestPriorityTaskManager {
 
     @Test
     @DisplayName("Adding to queue")
-    public void testAdd() {
+    public void testAdd() throws TerminationError{
         tm.addProcess(new DummyProcess(1,1));
         tm.addProcess(new DummyProcess(2,1));
 

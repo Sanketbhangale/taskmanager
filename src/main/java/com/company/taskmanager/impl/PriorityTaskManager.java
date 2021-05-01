@@ -1,18 +1,19 @@
 package com.company.taskmanager.impl;
 
-import com.company.Process;
+import com.company.Processable;
+import com.company.TerminationError;
 import com.company.taskmanager.TaskManager;
 import com.company.taskmanager.objects.ProcessContainer;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 public class PriorityTaskManager extends TaskManager {
 
 
     public PriorityTaskManager(int maxSize) {
-        this.queue = new PriorityQueue<>(1, new Comparator<ProcessContainer>() {
+        this.queue = new PriorityBlockingQueue<>(1, new Comparator<ProcessContainer>() {
             @Override
             public int compare(ProcessContainer o1, ProcessContainer o2) {
                 if (o1.getPriority() == o2.getPriority()) {
@@ -25,19 +26,19 @@ public class PriorityTaskManager extends TaskManager {
                 return o1.getPriority() - o2.getPriority();
             }
         });
-        this.idMap = new HashMap<>();
-        this.priorityMap = new HashMap<>();
+        this.idToProcessMap = new HashMap<>();
+        this.priorityToProcessMap = new HashMap<>();
         this.maxSize = maxSize;
     }
 
     @Override
-    protected ProcessContainer addProcessToQueue(Process process) {
+    protected ProcessContainer addProcessToQueue(Processable process) throws TerminationError {
         ProcessContainer container = new ProcessContainer(process);
         if (!queue.isEmpty() && queue.size() >= this.maxSize && container.getPriority() > queue.peek().getPriority()) {
-            queue.remove();
+            queue.remove().kill();
         }
         queue.add(container);
-        idMap.put(container.getId(), container);
+        idToProcessMap.put(container.getId(), container);
         return container;
     }
 
