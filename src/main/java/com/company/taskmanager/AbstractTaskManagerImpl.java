@@ -13,6 +13,15 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
 
 public abstract class AbstractTaskManagerImpl implements TaskManager {
+    /**
+     * The implementation uses three data structures
+     * idToProcessMap: Store mapping between id and Process for id retrieval. This is to reduce
+     *                  the lookup time for id
+     * priorityToProcessMap: Map to reduce the priority based lookup
+     *
+     * The argument where a linear search can be better than a hashmap is still debatable.
+     * In theory hashmap can be as worse as O(N). But it can also be better which linear search cannot.
+     */
     protected Queue<ProcessContainer> queue;
     protected int maxSize;
     protected Map<Integer, ProcessContainer> idToProcessMap;

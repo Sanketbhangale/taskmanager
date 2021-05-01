@@ -16,6 +16,12 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class DynamicTaskManager extends AbstractTaskManagerImpl {
 
+    /**
+     * The Dynamic task manager uses an Array Queue. The removal and addition
+     * in the Queue is O(1)
+     * As for other maps it is O(N) worst case.
+     * @param maxSize
+     */
     public DynamicTaskManager(int maxSize){
         super(maxSize);
         this.queue = new ArrayBlockingQueue<ProcessContainer>(maxSize);

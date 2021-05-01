@@ -15,10 +15,13 @@ import java.util.concurrent.PriorityBlockingQueue;
  */
 public class PriorityTaskManager extends AbstractTaskManagerImpl {
 
-    //The Priority queue uses Priority, Creation time, id in descending order of
-    // importance to sort the queue.
-    // Insertion operation on the queue is O(logN)
-    // idToProcessMap works with worst case of O(N) on all it's operations
+    /**
+     * The Priority queue uses Priority, Creation time, id in descending order of
+     *  importance to sort the queue.
+     *  Insertion operation on the queue is O(logN)
+     *  idToProcessMap works with worst case of O(N) on all it's operations
+     */
+
     public PriorityTaskManager(int maxSize) {
         super(maxSize);
         this.queue = new PriorityBlockingQueue<>(1, new Comparator<ProcessContainer>() {
