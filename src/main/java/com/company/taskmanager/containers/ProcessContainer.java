@@ -5,6 +5,9 @@ import com.company.TerminationException;
 
 import java.util.Date;
 
+/**
+ * Task Manager uses this container to interact with users process object
+ */
 public class ProcessContainer {
     private int id;
     private int priority;

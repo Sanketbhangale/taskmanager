@@ -34,9 +34,8 @@ public class TestDynamicTaskManager {
         }
 
         @Override
-        public int freeResources() throws TerminationException {
+        public void freeResources() throws TerminationException {
             System.out.println("Did some magic and free resources");
-            return 0;
         }
     }
 
