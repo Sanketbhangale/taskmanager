@@ -1,8 +1,13 @@
 # Taskmanager
 
+The task manager consists of a task manager that manages clients processes.
+A ``process`` is left to the client to be defined using an interface. This component exposes interfaces for the client to utilize and define the behavior of the process and access the TaskManager.
+Kindly read the comments in the code for implementation details.
+
+
 # Usage of the component
 
-To use the task manager accepts a process object that implements the process interface.
+To use the task manager accepts a process object that implements the ``Process`` interface.
 
         class MySystemProcess implements Process {
         private int id;
