@@ -24,10 +24,9 @@ To use the task manager accepts a process object that implements the process int
                 }
 
                 @Override
-                public int freeResources() throws TerminationError {
+                public void freeResources() throws TerminationError {
                     //Implement logic to free resources. This will be called 
                     // when a kill on this process is executed
-                    return 0;
                 }
     }
 
